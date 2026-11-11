@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/space_screen_horizontal"
+        android:paddingEnd="@dimen/space_screen_horizontal"
+        android:paddingTop="@dimen/space_m"
+        android:paddingBottom="@dimen/space_s"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Music Player"
+            android:textAppearance="@style/TextAppearance.SDMusicPlayer.Title" />
+
+        <ImageButton
+            android:id="@+id/buttonHomeSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space_s"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="検索"
+            android:src="@android:drawable/ic_menu_search"
+            app:tint="?attr/bgTextColorSecondary" />
+
+        <ImageButton
+            android:id="@+id/buttonHomeSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_xs"
+            android:padding="@dimen/space_s"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="設定"
+            android:src="@drawable/ic_settings_gear"
+            app:tint="?attr/bgTextColorSecondary" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/space_l"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/space_s">
+
+            <!-- すべてシャッフル: ホーム画面のメインアクション。アイコンバッジ・サブタイトル・
+     斜めの光沢(シャイン)・矢印を加えて、単色ベタ塗りから質感のあるデザインに変更 -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardShuffleAll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_screen_horizontal"
+                android:layout_marginEnd="@dimen/space_screen_horizontal"
+                android:layout_marginBottom="@dimen/space_l"
+                app:cardCornerRadius="?attr/skinCardCornerRadius"
+                app:cardElevation="?attr/skinCardElevation"
+                app:cardBackgroundColor="?attr/colorPrimary"
+                app:strokeWidth="0dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <!-- 斜めの光沢。カードの角丸に自動的にクリップされる -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_shuffle_card_highlight" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/space_l">
+
+                        <!-- アイコンを半透明の円バッジの中に配置 -->
+                        <FrameLayout
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:background="@drawable/bg_icon_circle_translucent">
+
+                            <ImageView
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_shuffle"
+                                android:contentDescription="@null"
+                                app:tint="?attr/colorOnPrimary" />
+
+                        </FrameLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="@dimen/space_m"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="すべてシャッフル"
+                                android:textAppearance="@style/TextAppearance.SDMusicPlayer.CardTitle"
+                                android:textColor="?attr/colorOnPrimary" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="全曲からランダム再生"
+                                android:textAppearance="@style/TextAppearance.SDMusicPlayer.BodySmall"
+                                android:textColor="?attr/colorOnPrimary"
+                                android:alpha="0.85" />
+
+                        </LinearLayout>
+
+                        <!-- タップできることを示す矢印(既存のドラッグハンドル等と同じく、文字を
+                             アイコン代わりに使う手法をこのアプリでは採用しているため合わせている) -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/space_s"
+                            android:text="›"
+                            android:textSize="26sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnPrimary"
+                            android:alpha="0.85" />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 最近追加した曲(横スクロール、データが0件ならセクションごと非表示) -->
+            <LinearLayout
+                android:id="@+id/sectionRecent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="@dimen/space_l">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingStart="@dimen/space_screen_horizontal"
+                    android:paddingEnd="@dimen/space_screen_horizontal"
+                    android:paddingBottom="@dimen/space_s">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="最近追加した曲"
+                        android:textAppearance="@style/TextAppearance.SDMusicPlayer.CardTitle" />
+
+                    <TextView
+                        android:id="@+id/textViewSeeAllRecent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="すべて見る"
+                        android:textAppearance="@style/TextAppearance.SDMusicPlayer.BodySmall"
+                        android:textColor="?attr/colorPrimary"
+                        android:padding="@dimen/space_xs" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewRecentSongs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:paddingStart="@dimen/space_screen_horizontal"
+                    android:paddingEnd="@dimen/space_screen_horizontal" />
+
+            </LinearLayout>
+
+            <!-- お気に入り(プレビュー最大3件、データが0件ならセクションごと非表示) -->
+            <LinearLayout
+                android:id="@+id/sectionFavorites"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="@dimen/space_l">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingStart="@dimen/space_screen_horizontal"
+                    android:paddingEnd="@dimen/space_screen_horizontal"
+                    android:paddingBottom="@dimen/space_s">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="お気に入り"
+                        android:textAppearance="@style/TextAppearance.SDMusicPlayer.CardTitle" />
+
+                    <TextView
+                        android:id="@+id/textViewSeeAllFavorites"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="すべて見る"
+                        android:textAppearance="@style/TextAppearance.SDMusicPlayer.BodySmall"
+                        android:textColor="?attr/colorPrimary"
+                        android:padding="@dimen/space_xs" />
+
+                </LinearLayout>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_screen_horizontal"
+                    android:layout_marginEnd="@dimen/space_screen_horizontal"
+                    app:cardCornerRadius="@dimen/radius_card"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="@color/color_surface">
+
+                    <LinearLayout
+                        android:id="@+id/containerFavorites"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+            <!-- プレイリスト(横スクロール、データが0件ならセクションごと非表示) -->
+            <LinearLayout
+                android:id="@+id/sectionPlaylists"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="@dimen/space_l">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingStart="@dimen/space_screen_horizontal"
+                    android:paddingEnd="@dimen/space_screen_horizontal"
+                    android:paddingBottom="@dimen/space_s">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="プレイリスト"
+                        android:textAppearance="@style/TextAppearance.SDMusicPlayer.CardTitle" />
+
+                    <TextView
+                        android:id="@+id/textViewSeeAllPlaylists"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="すべて見る"
+                        android:textAppearance="@style/TextAppearance.SDMusicPlayer.BodySmall"
+                        android:textColor="?attr/colorPrimary"
+                        android:padding="@dimen/space_xs" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewPlaylists"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:paddingStart="@dimen/space_screen_horizontal"
+                    android:paddingEnd="@dimen/space_screen_horizontal" />
+
+            </LinearLayout>
+
+            <!-- フォルダ(プレビュー最大5件、データが0件ならセクションごと非表示) -->
+            <LinearLayout
+                android:id="@+id/sectionFolders"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingStart="@dimen/space_screen_horizontal"
+                    android:paddingEnd="@dimen/space_screen_horizontal"
+                    android:paddingBottom="@dimen/space_s">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="フォルダ"
+                        android:textAppearance="@style/TextAppearance.SDMusicPlayer.CardTitle" />
+
+                    <TextView
+                        android:id="@+id/textViewSeeAllFolders"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="すべて見る"
+                        android:textAppearance="@style/TextAppearance.SDMusicPlayer.BodySmall"
+                        android:textColor="?attr/colorPrimary"
+                        android:padding="@dimen/space_xs" />
+
+                </LinearLayout>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_screen_horizontal"
+                    android:layout_marginEnd="@dimen/space_screen_horizontal"
+                    app:cardCornerRadius="@dimen/radius_card"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="@color/color_surface">
+
+                    <LinearLayout
+                        android:id="@+id/containerFolders"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

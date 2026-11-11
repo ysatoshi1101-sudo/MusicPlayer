@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/space_m"
+    android:layout_marginEnd="@dimen/space_m"
+    android:layout_marginTop="@dimen/space_s"
+    app:cardCornerRadius="@dimen/radius_card"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="@color/color_surface">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="@dimen/space_m">
+
+        <TextView
+            android:id="@+id/textViewDragHandle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/space_m"
+            android:text="≡"
+            android:textSize="22sp"
+            android:textColor="@color/color_icon_secondary" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/song_thumbnail_size"
+            android:layout_height="@dimen/song_thumbnail_size"
+            app:cardCornerRadius="@dimen/radius_small"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@color/color_mini_player_background">
+
+            <ImageView
+                android:id="@+id/imageViewPlaylistCover"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:contentDescription="プレイリストカバー" />
+
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/space_m"
+            android:orientation="vertical">
+
+            <!-- このカードは常に不透明(color_surface)なため、背景機能の白文字テーマの対象外として
+                 文字色・影を明示的に固定する -->
+            <TextView
+                android:id="@+id/textViewPlaylistName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textAppearance="@style/TextAppearance.SDMusicPlayer.CardTitle"
+                android:textColor="@color/color_text_primary"
+                android:shadowColor="@android:color/transparent"
+                android:text="プレイリスト名" />
+
+            <TextView
+                android:id="@+id/textViewPlaylistSongCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textAppearance="@style/TextAppearance.SDMusicPlayer.BodySmall"
+                android:textColor="@color/color_text_secondary"
+                android:shadowColor="@android:color/transparent"
+                android:text="0曲" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_s"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <ImageButton
+                android:id="@+id/buttonRenamePlaylist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/space_xs"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="名前を変更"
+                android:src="@android:drawable/ic_menu_edit"
+                app:tint="@color/color_icon_secondary" />
+
+            <ImageButton
+                android:id="@+id/buttonDeletePlaylist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:padding="@dimen/space_xs"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="削除"
+                android:src="@android:drawable/ic_menu_delete"
+                app:tint="@color/color_icon_secondary" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

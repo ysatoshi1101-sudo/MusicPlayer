@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Spacing (Kotlin: Spacing.kt と同じ値。変更する場合は両方を更新してください) -->
+    <dimen name="space_xs">4dp</dimen>
+    <dimen name="space_s">8dp</dimen>
+    <dimen name="space_m">16dp</dimen>
+    <dimen name="space_l">24dp</dimen>
+    <dimen name="space_xl">32dp</dimen>
+    <dimen name="space_screen_horizontal">16dp</dimen>
+    <dimen name="space_card">12dp</dimen>
+
+    <!-- Shape角丸 (Kotlin: Shape.kt と同じ値) -->
+    <dimen name="radius_small">8dp</dimen>
+    <dimen name="radius_medium">16dp</dimen>
+    <dimen name="radius_large">24dp</dimen>
+    <dimen name="radius_card">20dp</dimen>
+    <dimen name="radius_button">16dp</dimen>
+    <dimen name="radius_bottom_sheet">28dp</dimen>
+    <dimen name="song_thumbnail_size">48dp</dimen>
+    <dimen name="avatar_size">40dp</dimen>
+    <dimen name="radius_avatar">20dp</dimen>
+
+    <!-- ホーム画面のデザイン刷新で追加(横スクロールカードのサムネイル/アイコンサイズ) -->
+    <dimen name="home_card_image_size">120dp</dimen>
+
+    <!-- スキン機能で追加。カード系Viewの見た目(XML側)。Compose側はSkin.ktのskinShapes()等に同じ値を
+         定義しているため、変更する場合は両方を更新してください -->
+    <dimen name="skin_standard_card_radius">20dp</dimen>
+    <dimen name="skin_modern_card_radius">36dp</dimen>
+    <dimen name="skin_standard_card_elevation">4dp</dimen>
+    <dimen name="skin_modern_card_elevation">10dp</dimen>
+    <dimen name="skin_standard_card_stroke_width">0dp</dimen>
+    <dimen name="skin_modern_card_stroke_width">1.5dp</dimen>
+
+    <!-- Glassスキン追加で追加。Skin.ktのskinTokens()と同じ値(値のズレ防止のため一致させること) -->
+    <dimen name="skin_glass_card_radius">24dp</dimen>
+    <dimen name="skin_glass_card_elevation">1dp</dimen>
+    <dimen name="skin_glass_card_stroke_width">1dp</dimen>
+</resources>

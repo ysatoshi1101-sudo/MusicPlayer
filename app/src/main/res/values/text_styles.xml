@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextAppearance.SDMusicPlayer.Display" parent="TextAppearance.Material3.DisplaySmall">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">?attr/bgTextColorPrimary</item>
+        <item name="android:shadowColor">?attr/bgTextShadowColor</item>
+        <item name="android:shadowDx">?attr/bgTextShadowDx</item>
+        <item name="android:shadowDy">?attr/bgTextShadowDy</item>
+        <item name="android:shadowRadius">?attr/bgTextShadowRadius</item>
+    </style>
+    <style name="TextAppearance.SDMusicPlayer.Headline" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">?attr/bgTextColorPrimary</item>
+        <item name="android:shadowColor">?attr/bgTextShadowColor</item>
+        <item name="android:shadowDx">?attr/bgTextShadowDx</item>
+        <item name="android:shadowDy">?attr/bgTextShadowDy</item>
+        <item name="android:shadowRadius">?attr/bgTextShadowRadius</item>
+    </style>
+    <style name="TextAppearance.SDMusicPlayer.Title" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">?attr/bgTextColorPrimary</item>
+        <item name="android:shadowColor">?attr/bgTextShadowColor</item>
+        <item name="android:shadowDx">?attr/bgTextShadowDx</item>
+        <item name="android:shadowDy">?attr/bgTextShadowDy</item>
+        <item name="android:shadowRadius">?attr/bgTextShadowRadius</item>
+    </style>
+    <style name="TextAppearance.SDMusicPlayer.CardTitle" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">?attr/bgTextColorPrimary</item>
+        <item name="android:shadowColor">?attr/bgTextShadowColor</item>
+        <item name="android:shadowDx">?attr/bgTextShadowDx</item>
+        <item name="android:shadowDy">?attr/bgTextShadowDy</item>
+        <item name="android:shadowRadius">?attr/bgTextShadowRadius</item>
+    </style>
+    <style name="TextAppearance.SDMusicPlayer.Body" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">?attr/bgTextColorPrimary</item>
+        <item name="android:shadowColor">?attr/bgTextShadowColor</item>
+        <item name="android:shadowDx">?attr/bgTextShadowDx</item>
+        <item name="android:shadowDy">?attr/bgTextShadowDy</item>
+        <item name="android:shadowRadius">?attr/bgTextShadowRadius</item>
+    </style>
+    <style name="TextAppearance.SDMusicPlayer.BodySmall" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?attr/bgTextColorSecondary</item>
+        <item name="android:shadowColor">?attr/bgTextShadowColor</item>
+        <item name="android:shadowDx">?attr/bgTextShadowDx</item>
+        <item name="android:shadowDy">?attr/bgTextShadowDy</item>
+        <item name="android:shadowRadius">?attr/bgTextShadowRadius</item>
+    </style>
+    <style name="TextAppearance.SDMusicPlayer.Label" parent="TextAppearance.Material3.LabelMedium">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">?attr/bgTextColorSecondary</item>
+        <item name="android:shadowColor">?attr/bgTextShadowColor</item>
+        <item name="android:shadowDx">?attr/bgTextShadowDx</item>
+        <item name="android:shadowDy">?attr/bgTextShadowDy</item>
+        <item name="android:shadowRadius">?attr/bgTextShadowRadius</item>
+    </style>
+    <style name="TextAppearance.SDMusicPlayer.Button" parent="TextAppearance.Material3.LabelLarge">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?attr/bgTextColorPrimary</item>
+        <item name="android:shadowColor">?attr/bgTextShadowColor</item>
+        <item name="android:shadowDx">?attr/bgTextShadowDx</item>
+        <item name="android:shadowDy">?attr/bgTextShadowDy</item>
+        <item name="android:shadowRadius">?attr/bgTextShadowRadius</item>
+    </style>
+</resources>

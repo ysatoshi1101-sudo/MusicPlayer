@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/editTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="曲名" />
+
+    <EditText
+        android:id="@+id/editArtist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="アーティスト名"
+        android:layout_marginTop="8dp" />
+
+    <EditText
+        android:id="@+id/editAlbum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="アルバム名"
+        android:layout_marginTop="8dp" />
+
+</LinearLayout>

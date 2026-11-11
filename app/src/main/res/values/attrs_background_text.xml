@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 背景機能(文字視認性)で追加。背景(アルバムアート/写真/パターン)が有効なときに
+         文字色・影をテーマ属性経由で切り替えるための宣言。
+         既定値はBase.Theme.MusicPlayer側で設定し、背景が有効なときだけ
+         ThemeOverlay.SDMusicPlayer.BackgroundText で上書きする -->
+    <attr name="bgTextColorPrimary" format="color" />
+    <attr name="bgTextColorSecondary" format="color" />
+    <attr name="bgTextShadowColor" format="color" />
+    <attr name="bgTextShadowDx" format="float" />
+    <attr name="bgTextShadowDy" format="float" />
+    <attr name="bgTextShadowRadius" format="float" />
+
+    <!-- ミニプレーヤー背景対応(フェーズ1)で追加。上記と同じ考え方で、
+         背景が有効なときだけミニプレーヤーの背景色を半透明に切り替えるための宣言 -->
+    <attr name="miniPlayerBackgroundColor" format="color" />
+
+    <!-- ミニプレーヤー背景対応(フェーズ1・影の調整)で追加。背景が有効なときは影を0にし、
+         カードの縁だけが額縁のように暗く浮いて見える現象を防ぐ -->
+    <attr name="miniPlayerElevation" format="dimension" />
+
+    <!-- BottomNavigation背景対応(フェーズ2)で追加。ミニプレーヤーと同じ考え方で、
+         背景が有効なときだけBottomNavigationViewの背景色を半透明に切り替えるための宣言 -->
+    <attr name="bottomNavBackgroundColor" format="color" />
+
+    <!-- 再生キュー背景対応(フェーズ3)で追加。同じ考え方で、
+         背景が有効なときだけ再生キュー(BottomSheetDialog)の背景色を半透明に切り替えるための宣言 -->
+    <attr name="queueBackgroundColor" format="color" />
+</resources>

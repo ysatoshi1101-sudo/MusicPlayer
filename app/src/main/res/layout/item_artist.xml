@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/space_m"
+        android:paddingEnd="@dimen/space_s"
+        android:paddingTop="@dimen/space_s"
+        android:paddingBottom="@dimen/space_s">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="@dimen/avatar_size"
+            android:layout_height="@dimen/avatar_size"
+            app:cardCornerRadius="@dimen/radius_avatar"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@color/color_mini_player_background">
+
+            <TextView
+                android:id="@+id/textViewArtistInitial"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="?attr/colorPrimary"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:text="A" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/space_m"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewArtistName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textAppearance="@style/TextAppearance.SDMusicPlayer.Body"
+                android:text="アーティスト名" />
+
+            <TextView
+                android:id="@+id/textViewArtistSongCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textAppearance="@style/TextAppearance.SDMusicPlayer.BodySmall"
+                android:text="0曲" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="@dimen/space_m"
+        android:background="@color/color_divider" />
+
+</LinearLayout>

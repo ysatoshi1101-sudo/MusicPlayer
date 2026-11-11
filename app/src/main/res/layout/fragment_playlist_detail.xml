@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardPlaylistCover"
+        android:layout_width="@dimen/home_card_image_size"
+        android:layout_height="@dimen/home_card_image_size"
+        android:layout_marginTop="@dimen/space_m"
+        app:cardCornerRadius="@dimen/radius_card"
+        app:cardElevation="2dp"
+        app:cardBackgroundColor="@color/color_mini_player_background"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/imageViewPlaylistCover"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:contentDescription="プレイリストカバー" />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/textViewPlaylistDetailName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_s"
+        android:layout_marginStart="@dimen/space_screen_horizontal"
+        android:layout_marginEnd="@dimen/space_screen_horizontal"
+        android:gravity="center"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textAppearance="@style/TextAppearance.SDMusicPlayer.Title"
+        app:layout_constraintTop_toBottomOf="@id/cardPlaylistCover"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="プレイリスト名" />
+
+    <LinearLayout
+        android:id="@+id/controlBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/space_screen_horizontal"
+        android:paddingEnd="@dimen/space_s"
+        android:paddingTop="@dimen/space_s"
+        android:paddingBottom="@dimen/space_s"
+        app:layout_constraintTop_toBottomOf="@id/textViewPlaylistDetailName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageButton
+            android:id="@+id/buttonPlayShuffled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space_s"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="シャッフル再生"
+            android:src="@drawable/ic_shuffle"
+            app:tint="?attr/colorPrimary" />
+
+        <TextView
+            android:id="@+id/textViewSelectAll"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/space_m"
+            android:text="全選択"
+            android:textAppearance="@style/TextAppearance.SDMusicPlayer.Button"
+            android:textColor="?attr/colorPrimary"
+            android:padding="@dimen/space_s"
+            android:visibility="invisible" />
+
+        <ImageButton
+            android:id="@+id/buttonDeleteSelected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_xs"
+            android:padding="@dimen/space_s"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="プレイリストから一括削除"
+            android:src="@android:drawable/ic_menu_delete"
+            android:visibility="gone"
+            app:tint="@color/color_error" />
+
+        <ImageButton
+            android:id="@+id/buttonMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_xs"
+            android:padding="@dimen/space_s"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="メニュー"
+            android:src="@android:drawable/ic_menu_sort_by_size"
+            app:tint="?attr/bgTextColorSecondary" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewPlaylistSongs"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/space_m"
+        app:layout_constraintTop_toBottomOf="@id/controlBar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,111 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.MusicPlayer" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/color_accent</item>
+        <item name="colorSurface">@color/color_surface</item>
+        <item name="colorOnSurface">@color/color_text_primary</item>
+        <item name="android:windowBackground">@color/color_background</item>
+        <item name="android:textColorPrimary">@color/color_text_primary</item>
+        <item name="android:textColorSecondary">@color/color_text_secondary</item>
+        <!-- PopupMenu(三点リーダー・並び替えメニュー等)の背景色バグ修正で追加。
+             このアプリで使っているのはMaterial3のPopupMenuではなく素のandroid.widget.PopupMenuで、
+             これはcolorSurface系のMaterial3トークンを一切見ておらず、android:popupMenuStyle経由の
+             android:popupBackgroundをハードコード的に参照している。そのため上記のcolorSurface系の
+             指定だけでは効かず、この項目を直接指定する必要があった(真の原因) -->
+        <item name="android:popupMenuStyle">@style/PopupMenu.SDMusicPlayer</item>
+        <!-- PopupMenu(三点リーダー・並び替えメニュー等)の背景色バグ修正で追加。
+             PopupMenuの背景はcolorSurfaceではなくandroid:colorBackgroundFloatingを参照するため、
+             これを指定しないとOS標準のダーク/ライト自動切り替えに引っ張られ、
+             ダークモード時に「背景は黒くなるが文字色はアプリ固定のまま」で読めなくなっていた -->
+        <item name="android:colorBackgroundFloating">@color/color_surface</item>
+        <!-- PopupMenu(Material3のWidget.Material3.PopupMenu等)はcolorSurfaceではなく
+             colorSurfaceContainer系のトークンを背景色として使うため、これらも固定しないと
+             ダークモード時にMaterial3既定の暗いパレットが使われてしまう(colorSurfaceを
+             固定しただけでは効かなかった問題の本修正)。このアプリは元々ダーク/ライトで
+             色を変えない設計のため、全部color_surfaceに統一する -->
+        <item name="colorSurfaceContainer">@color/color_surface</item>
+        <item name="colorSurfaceContainerLow">@color/color_surface</item>
+        <item name="colorSurfaceContainerHigh">@color/color_surface</item>
+        <item name="colorSurfaceContainerHighest">@color/color_surface</item>
+        <item name="colorSurfaceContainerLowest">@color/color_surface</item>
+        <!-- スキン機能で追加。既定値はStandardスキンの値 -->
+        <item name="skinCardCornerRadius">@dimen/skin_standard_card_radius</item>
+        <item name="skinCardElevation">@dimen/skin_standard_card_elevation</item>
+        <item name="skinCardStrokeWidth">@dimen/skin_standard_card_stroke_width</item>
+        <!-- 背景機能(文字視認性)で追加。既定値(背景なし)は通常の文字色・影なし -->
+        <item name="bgTextColorPrimary">@color/color_text_primary</item>
+        <item name="bgTextColorSecondary">@color/color_text_secondary</item>
+        <item name="bgTextShadowColor">@android:color/transparent</item>
+        <item name="bgTextShadowDx">0</item>
+        <item name="bgTextShadowDy">0</item>
+        <item name="bgTextShadowRadius">0</item>
+        <!-- ミニプレーヤー背景対応(フェーズ1)で追加。既定値(背景なし)は従来通りの不透明色 -->
+        <item name="miniPlayerBackgroundColor">@color/color_mini_player_background</item>
+        <!-- ミニプレーヤー背景対応(フェーズ1・影の調整)で追加。既定値(背景なし)はスキン通常の影のまま -->
+        <item name="miniPlayerElevation">?attr/skinCardElevation</item>
+        <!-- BottomNavigation背景対応(フェーズ2)で追加。既定値(背景なし)は従来通りの不透明色 -->
+        <item name="bottomNavBackgroundColor">@color/color_surface</item>
+        <!-- 再生キュー背景対応(フェーズ3)で追加。既定値(背景なし)は従来通りの不透明色 -->
+        <item name="queueBackgroundColor">@color/color_surface</item>
+    </style>
+
+    <style name="Theme.MusicPlayer" parent="Base.Theme.MusicPlayer" />
+
+    <!-- PopupMenu(三点リーダー・並び替えメニュー等)の背景色バグ修正で新規追加。
+         android.widget.PopupMenuが実際に参照するスタイル。android:popupBackgroundに
+         直接色を指定することで、ダーク/ライトどちらでもアプリの固定背景色になる -->
+    <style name="PopupMenu.SDMusicPlayer" parent="android:Widget.Material.PopupMenu">
+        <item name="android:popupBackground">@color/color_surface</item>
+    </style>
+
+    <!-- メインカラー機能で追加。MainActivity.kt から theme.applyStyle() で適用する。
+         parent="" を明示し、スタイル名からの親自動解釈(ThemeOverlay.SDMusicPlayerを探しにいく挙動)を防ぐ -->
+    <style name="ThemeOverlay.SDMusicPlayer.Indigo" parent="">
+        <item name="colorPrimary">@color/color_seed_indigo</item>
+    </style>
+    <style name="ThemeOverlay.SDMusicPlayer.Purple" parent="">
+        <item name="colorPrimary">@color/color_seed_purple</item>
+    </style>
+    <style name="ThemeOverlay.SDMusicPlayer.Blue" parent="">
+        <item name="colorPrimary">@color/color_seed_blue</item>
+    </style>
+    <style name="ThemeOverlay.SDMusicPlayer.Green" parent="">
+        <item name="colorPrimary">@color/color_seed_green</item>
+    </style>
+    <style name="ThemeOverlay.SDMusicPlayer.Orange" parent="">
+        <item name="colorPrimary">@color/color_seed_orange</item>
+    </style>
+    <style name="ThemeOverlay.SDMusicPlayer.Red" parent="">
+        <item name="colorPrimary">@color/color_seed_red</item>
+    </style>
+    <style name="ThemeOverlay.SDMusicPlayer.Pink" parent="">
+        <item name="colorPrimary">@color/color_seed_pink</item>
+    </style>
+
+    <!-- スキン機能で追加。Standardは既定値(Base.Theme.MusicPlayer)のままなのでOverlay不要。
+         Modernのみ、角丸・影・縁取りを強調するOverlayを用意する -->
+    <style name="ThemeOverlay.SDMusicPlayer.Skin.Modern" parent="">
+        <item name="skinCardCornerRadius">@dimen/skin_modern_card_radius</item>
+        <item name="skinCardElevation">@dimen/skin_modern_card_elevation</item>
+        <item name="skinCardStrokeWidth">@dimen/skin_modern_card_stroke_width</item>
+    </style>
+
+    <!-- 背景機能(文字視認性)で追加。背景が「なし」以外のときMainActivity.ktから適用し、
+         文字を白+影に切り替える。ミニプレーヤー背景対応(フェーズ1)で、
+         あわせてミニプレーヤーの背景を半透明に切り替える項目も追加した -->
+    <style name="ThemeOverlay.SDMusicPlayer.BackgroundText" parent="">
+        <item name="bgTextColorPrimary">@color/color_text_on_background</item>
+        <item name="bgTextColorSecondary">@color/color_text_secondary_on_background</item>
+        <item name="bgTextShadowColor">@color/color_text_shadow_on_background</item>
+        <item name="bgTextShadowDx">0</item>
+        <item name="bgTextShadowDy">1</item>
+        <item name="bgTextShadowRadius">3</item>
+        <item name="miniPlayerBackgroundColor">@color/color_mini_player_background_transparent</item>
+        <!-- ミニプレーヤー背景対応(フェーズ1・影の調整)で追加。影をなくし、フラットな半透明パネルに馴染ませる -->
+        <item name="miniPlayerElevation">0dp</item>
+        <!-- BottomNavigation背景対応(フェーズ2)で追加。ミニプレーヤーと同じ半透明色・影なしにする -->
+        <item name="bottomNavBackgroundColor">@color/color_bottom_nav_background_transparent</item>
+        <!-- 再生キュー背景対応(フェーズ3)で追加 -->
+        <item name="queueBackgroundColor">@color/color_queue_background_transparent</item>
+    </style>
+</resources>

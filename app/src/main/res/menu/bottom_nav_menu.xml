@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_home"
+        android:title="ホーム"
+        android:icon="@drawable/ic_nav_home" />
+
+    <item
+        android:id="@+id/nav_songs"
+        android:title="曲"
+        android:icon="@drawable/ic_nav_songs" />
+
+    <item
+        android:id="@+id/nav_artists"
+        android:title="アーティスト"
+        android:icon="@drawable/ic_nav_artists" />
+
+    <item
+        android:id="@+id/nav_albums"
+        android:title="アルバム"
+        android:icon="@drawable/ic_nav_albums" />
+
+    <item
+        android:id="@+id/nav_playlists"
+        android:title="プレイリスト"
+        android:icon="@drawable/ic_nav_playlists" />
+
+</menu>

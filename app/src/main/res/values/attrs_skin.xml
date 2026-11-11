@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- スキン機能で追加。カード系ViewのXML(View)側で使う、スキンごとに切り替わるテーマ属性 -->
+    <attr name="skinCardCornerRadius" format="dimension" />
+    <attr name="skinCardElevation" format="dimension" />
+    <attr name="skinCardStrokeWidth" format="dimension" />
+</resources>

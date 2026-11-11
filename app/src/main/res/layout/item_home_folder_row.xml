@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/space_m"
+    android:paddingEnd="@dimen/space_m"
+    android:paddingTop="@dimen/space_s"
+    android:paddingBottom="@dimen/space_s"
+    android:gravity="center_vertical"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
+
+    <ImageView
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:src="@android:drawable/ic_menu_gallery"
+        android:contentDescription="@null"
+        app:tint="?attr/colorPrimary" />
+
+    <!-- このカードは常に不透明(color_surface)なため、背景機能の白文字テーマの対象外として
+         文字色・影を明示的に固定する -->
+    <TextView
+        android:id="@+id/textViewFolderName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="@dimen/space_m"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textAppearance="@style/TextAppearance.SDMusicPlayer.Body"
+        android:textColor="@color/color_text_primary"
+        android:shadowColor="@android:color/transparent"
+        android:text="フォルダ名" />
+
+    <TextView
+        android:id="@+id/textViewFolderCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.SDMusicPlayer.BodySmall"
+        android:textColor="@color/color_text_secondary"
+        android:shadowColor="@android:color/transparent"
+        android:text="0曲" />
+
+</LinearLayout>

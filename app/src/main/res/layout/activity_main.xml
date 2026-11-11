@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!-- 背景機能で追加。fragmentContainerより前に宣言することで、必ず一番奥(背後)に描画される。
+         初期状態はgoneで、MainActivity.ktが背景タイプに応じて表示/非表示・見た目を切り替える -->
+    <ImageView
+        android:id="@+id/appBackgroundImage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:visibility="gone"
+        android:contentDescription="@null"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- 写真背景(アルバムアート/写真)の「暗さ」調整用オーバーレイ。パターン選択時は使わない -->
+    <View
+        android:id="@+id/appBackgroundDarkOverlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- 横スワイプでタブ切替(スワイプ機能)で変更。FrameLayoutからSwipeableFrameLayoutへ。
+         id・制約は変更していないため、Fragmentのnavigation処理への影響はない -->
+    <com.example.musicplayer.SwipeableFrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/miniPlayer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- ミニプレーヤー背景対応(フェーズ1)で変更。LinearLayoutからMaterialCardViewへ。
+         背景が有効なときは?attr/miniPlayerBackgroundColorが半透明色に切り替わり、
+         裏のappBackgroundImageが透けて見える。角丸・影・縁取りはスキン(Standard/Modern)に連動する -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/miniPlayer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:cardBackgroundColor="?attr/miniPlayerBackgroundColor"
+        app:cardCornerRadius="?attr/skinCardCornerRadius"
+        app:cardElevation="?attr/miniPlayerElevation"
+        app:strokeWidth="?attr/skinCardStrokeWidth"
+        app:strokeColor="?attr/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="@dimen/space_card">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <!-- ミニプレーヤー背景対応(フェーズ1)で変更。textColor/shadowColorの固定指定を削除し、
+                     他画面と同じくTextAppearance経由で?attr/bgTextColorPrimary等に従うようにした。
+                     背景無効時は従来通りcolor_text_primaryのまま見た目は変わらない -->
+                <TextView
+                    android:id="@+id/miniPlayerTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.SDMusicPlayer.Body"
+                    android:textStyle="bold"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:text="曲名" />
+
+                <TextView
+                    android:id="@+id/miniPlayerArtist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:textAppearance="@style/TextAppearance.SDMusicPlayer.BodySmall"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:text="アーティスト名" />
+
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/miniPlayerPrevious"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/space_xs"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="前へ"
+                android:src="@android:drawable/ic_media_previous"
+                app:tint="?attr/bgTextColorPrimary" />
+
+            <ImageButton
+                android:id="@+id/miniPlayerPlayPause"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_s"
+                android:padding="@dimen/space_xs"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="再生/一時停止"
+                android:src="@android:drawable/ic_media_play"
+                app:tint="?attr/bgTextColorPrimary" />
+
+            <ImageButton
+                android:id="@+id/miniPlayerNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_s"
+                android:padding="@dimen/space_xs"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="次へ"
+                android:src="@android:drawable/ic_media_next"
+                app:tint="?attr/bgTextColorPrimary" />
+
+            <ImageButton
+                android:id="@+id/miniPlayerQueue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_s"
+                android:padding="@dimen/space_xs"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="再生キュー"
+                android:src="@android:drawable/ic_menu_agenda"
+                app:tint="?attr/bgTextColorPrimary" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_bottom_navigation"
+        app:elevation="?attr/miniPlayerElevation"
+        app:itemIconTint="@color/bottom_nav_item_color"
+        app:itemTextColor="@color/bottom_nav_item_color"
+        app:menu="@menu/bottom_nav_menu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/composePlayerContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/color_background"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

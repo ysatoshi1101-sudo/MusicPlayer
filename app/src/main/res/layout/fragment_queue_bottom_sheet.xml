@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/space_m"
+        android:gravity="center_vertical">
+
+        <!-- 再生キュー背景対応(フェーズ3)で変更。textColor/shadowColorの固定指定を削除し、
+             他画面と同じくTextAppearance経由で?attr/bgTextColorPrimary等に従うようにした。
+             背景無効時は従来通りcolor_text_primaryのまま見た目は変わらない -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="再生中のキュー"
+            android:textAppearance="@style/TextAppearance.SDMusicPlayer.CardTitle" />
+
+        <ImageButton
+            android:id="@+id/buttonCloseQueue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space_s"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="閉じる"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            app:tint="?attr/bgTextColorSecondary" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewQueue"
+        android:layout_width="match_parent"
+        android:layout_height="400dp" />
+
+</LinearLayout>

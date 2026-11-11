@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/space_m"
+    android:gravity="center_vertical">
+
+    <!-- 再生キュー背景対応(フェーズ3)で変更。固定グレーから?attr/bgTextColorSecondaryに変更し、
+         背景有効時は白系のアイコン色に自動追従するようにした -->
+    <TextView
+        android:id="@+id/textViewQueueDragHandle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/space_m"
+        android:text="≡"
+        android:textSize="22sp"
+        android:textColor="?attr/bgTextColorSecondary" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <!-- titleTextの色はQueueAdapter.kt側で常にプログラムから明示的に設定しているため、
+             このXML側の指定は使われない(変更不要) -->
+        <TextView
+            android:id="@+id/textViewQueueTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textAppearance="@style/TextAppearance.SDMusicPlayer.Body"
+            android:text="曲名" />
+
+        <!-- 再生キュー背景対応(フェーズ3)で変更。再生キューが半透明になり得るようになったため、
+             textColor/shadowColorの固定指定を削除し、他画面と同じくTextAppearance経由で
+             ?attr/bgTextColorSecondaryに従うようにした。背景無効時は従来通りの見た目のまま -->
+        <TextView
+            android:id="@+id/textViewQueueArtist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_marginTop="2dp"
+            android:textAppearance="@style/TextAppearance.SDMusicPlayer.BodySmall"
+            android:text="アーティスト名" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_background">#FFFFFFFF</color>
+    <color name="color_surface">#FFFFFFFF</color>
+    <color name="color_text_primary">#FF000000</color>
+    <color name="color_text_secondary">#FF666666</color>
+    <color name="color_icon_secondary">#FF757575</color>
+    <color name="color_accent">#FF1DB954</color>
+    <color name="color_mini_player_background">#FFEEEEEE</color>
+    <color name="color_current_item_background">#FFE8F5E9</color>
+
+    <color name="color_primary">#FF3F51B5</color>
+    <color name="color_secondary">#FF9C27B0</color>
+    <color name="color_favorite">#FFFFC107</color>
+    <color name="color_error">#FFB00020</color>
+    <color name="color_success">#FF4CAF50</color>
+    <color name="color_divider">#1F000000</color>
+
+    <!-- メインカラー機能で追加。Theme.kt の AppColorSeed と完全に同じ値(値のズレ防止のため一致させること) -->
+    <color name="color_seed_indigo">#FF3F51B5</color>
+    <color name="color_seed_purple">#FF9C27B0</color>
+    <color name="color_seed_blue">#FF2196F3</color>
+    <color name="color_seed_green">#FF4CAF50</color>
+    <color name="color_seed_orange">#FFFF9800</color>
+    <color name="color_seed_red">#FFF44336</color>
+    <color name="color_seed_pink">#FFE91E63</color>
+
+    <!-- 背景機能(文字視認性)で追加。背景(アルバムアート/写真/パターン)有効時の文字色・影 -->
+    <color name="color_text_on_background">#FFFFFFFF</color>
+    <color name="color_text_secondary_on_background">#E6FFFFFF</color>
+    <color name="color_text_shadow_on_background">#99000000</color>
+
+    <!-- ミニプレーヤー背景対応(フェーズ1)で追加。背景有効時に使う半透明版。
+         白文字と組み合わせる前提のため、日中/夜間で分けず黒系半透明の単一値とする
+         (color_text_on_background等、他の背景時トークンと同じ考え方) -->
+    <color name="color_mini_player_background_transparent">#66000000</color>
+
+    <!-- BottomNavigation背景対応(フェーズ2)で追加。常時表示されるナビゲーションのため、
+         ミニプレーヤーより濃いめの半透明にして視認性・タップ位置の分かりやすさを優先する -->
+    <color name="color_bottom_nav_background_transparent">#B3000000</color>
+
+    <!-- 再生キュー背景対応(フェーズ3)で追加。ミニプレーヤーと同程度の半透明度から開始する -->
+    <color name="color_queue_background_transparent">#66000000</color>
+</resources>

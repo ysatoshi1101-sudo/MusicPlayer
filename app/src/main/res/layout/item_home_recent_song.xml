@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/home_card_image_size"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/space_m"
+    android:orientation="vertical"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="@dimen/home_card_image_size"
+        android:layout_height="@dimen/home_card_image_size"
+        app:cardCornerRadius="?attr/skinCardCornerRadius"
+        app:cardElevation="?attr/skinCardElevation"
+        app:strokeWidth="?attr/skinCardStrokeWidth"
+        app:strokeColor="?attr/colorPrimary"
+        app:cardBackgroundColor="@color/color_mini_player_background">
+
+        <ImageView
+            android:id="@+id/imageViewAlbumArt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:contentDescription="アルバムアート" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- このカードは背景の上に直接乗るため、意図的にBodySmallの標準色より強い色にしたいときは
+         ?attr/bgTextColorPrimary を使う(背景機能で白文字化される) -->
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_s"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textAppearance="@style/TextAppearance.SDMusicPlayer.BodySmall"
+        android:textColor="?attr/bgTextColorPrimary"
+        android:text="曲名" />
+
+    <TextView
+        android:id="@+id/textViewArtist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textAppearance="@style/TextAppearance.SDMusicPlayer.Label"
+        android:text="アーティスト名" />
+
+</LinearLayout>

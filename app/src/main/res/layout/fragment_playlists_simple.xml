@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textViewScreenTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/space_m"
+        android:paddingEnd="@dimen/space_m"
+        android:paddingTop="@dimen/space_m"
+        android:paddingBottom="@dimen/space_s"
+        android:textAppearance="@style/TextAppearance.SDMusicPlayer.Title"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/buttonScreenSettings" />
+
+    <!-- アーティスト/アルバム画面の右端に表示する設定ボタン。フォルダ画面ではtextViewScreenTitle同様に
+         Fragment側が表示状態を変更しないため、デフォルトgoneのまま自動的に非表示になる -->
+    <ImageButton
+        android:id="@+id/buttonScreenSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/space_xs"
+        android:padding="@dimen/space_s"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="設定"
+        android:src="@drawable/ic_settings_gear"
+        android:visibility="gone"
+        app:tint="?attr/bgTextColorSecondary"
+        app:layout_constraintTop_toTopOf="@id/textViewScreenTitle"
+        app:layout_constraintBottom_toBottomOf="@id/textViewScreenTitle"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- 検索バー: デフォルト非表示。必要な画面(アーティスト等)側でvisibility=visibleにして使う -->
+    <LinearLayout
+        android:id="@+id/searchBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_screen_horizontal"
+        android:layout_marginEnd="@dimen/space_screen_horizontal"
+        android:layout_marginTop="@dimen/space_s"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_search_field"
+        android:paddingStart="@dimen/space_m"
+        android:paddingEnd="@dimen/space_m"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/textViewScreenTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@android:drawable/ic_menu_search"
+            android:contentDescription="@null"
+            app:tint="@color/color_icon_secondary" />
+
+        <!-- 検索バーは常に不透明(bg_search_field)なため、背景機能の白文字テーマの対象外として
+             入力文字色を明示的に固定する(ヒント文字は元々static色のため変更不要) -->
+        <EditText
+            android:id="@+id/editTextSearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/space_s"
+            android:paddingTop="@dimen/space_m"
+            android:paddingBottom="@dimen/space_m"
+            android:hint="検索"
+            android:textAppearance="@style/TextAppearance.SDMusicPlayer.Body"
+            android:textColor="@color/color_text_primary"
+            android:textColorHint="@color/color_text_secondary"
+            android:inputType="text"
+            android:background="@null"
+            android:singleLine="true" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewGroups"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/space_s"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/space_m"
+        app:layout_constraintTop_toBottomOf="@id/searchBar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- 右端の可変ドラッグ式スクロールバー。recyclerViewGroupsと同じ範囲に重ねて表示する -->
+    <com.example.musicplayer.FastScrollerView
+        android:id="@+id/fastScroller"
+        android:layout_width="24dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="@id/recyclerViewGroups"
+        app:layout_constraintBottom_toBottomOf="@id/recyclerViewGroups"
+        app:layout_constraintEnd_toEndOf="@id/recyclerViewGroups" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

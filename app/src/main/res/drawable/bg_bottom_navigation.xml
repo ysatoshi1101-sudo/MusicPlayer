@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BottomNavigation背景対応(フェーズ2)で新規追加。
+     色は?attr/bottomNavBackgroundColorを参照する(角丸は付けず、四角のまま)。
+     背景の有無で不透明/半透明が自動的に切り替わる -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <solid android:color="?attr/bottomNavBackgroundColor" />
+
+</shape>
+

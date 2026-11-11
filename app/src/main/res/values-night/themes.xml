@@ -1,0 +1,46 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.MusicPlayer" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/color_accent</item>
+        <item name="colorSurface">@color/color_surface</item>
+        <item name="colorOnSurface">@color/color_text_primary</item>
+        <item name="android:windowBackground">@color/color_background</item>
+        <item name="android:textColorPrimary">@color/color_text_primary</item>
+        <item name="android:textColorSecondary">@color/color_text_secondary</item>
+        <!-- PopupMenu(三点リーダー・並び替えメニュー等)の背景色バグ修正で追加。
+             android.widget.PopupMenuが実際に参照するのはandroid:popupMenuStyle経由の
+             android:popupBackgroundであり、colorSurface系のMaterial3トークンではなかった
+             (真の原因)。day版と同じスタイルを明示する(values-night側で省略すると
+             親テーマのデフォルト値にフォールバックしてしまうため) -->
+        <item name="android:popupMenuStyle">@style/PopupMenu.SDMusicPlayer</item>
+        <!-- 標準のAlertDialog等が使うandroid:colorBackgroundFloatingもday版と合わせて固定 -->
+        <item name="android:colorBackgroundFloating">@color/color_surface</item>
+        <!-- Material3コンポーネントが使うcolorSurfaceContainer系トークンもday版と合わせて固定 -->
+        <item name="colorSurfaceContainer">@color/color_surface</item>
+        <item name="colorSurfaceContainerLow">@color/color_surface</item>
+        <item name="colorSurfaceContainerHigh">@color/color_surface</item>
+        <item name="colorSurfaceContainerHighest">@color/color_surface</item>
+        <item name="colorSurfaceContainerLowest">@color/color_surface</item>
+        <!-- スキン機能で追加。角丸・影・縁取りの値自体はライト/ダークで変わらないため、day版と同じ値を指定する -->
+        <item name="skinCardCornerRadius">@dimen/skin_standard_card_radius</item>
+        <item name="skinCardElevation">@dimen/skin_standard_card_elevation</item>
+        <item name="skinCardStrokeWidth">@dimen/skin_standard_card_stroke_width</item>
+        <!-- 背景機能(文字視認性)で追加。値自体はライト/ダークで変わらないため、day版と同じ値を指定する -->
+        <item name="bgTextColorPrimary">@color/color_text_primary</item>
+        <item name="bgTextColorSecondary">@color/color_text_secondary</item>
+        <item name="bgTextShadowColor">@android:color/transparent</item>
+        <item name="bgTextShadowDx">0</item>
+        <item name="bgTextShadowDy">0</item>
+        <item name="bgTextShadowRadius">0</item>
+        <!-- ミニプレーヤー背景対応(フェーズ1)で追加。既定値(背景なし)は従来通りの不透明色。
+             @color/color_mini_player_background自体がvalues-night側で別の値を持つため、
+             このファイルからの参照でも自動的に夜間用の色が使われる -->
+        <item name="miniPlayerBackgroundColor">@color/color_mini_player_background</item>
+        <!-- ミニプレーヤー背景対応(フェーズ1・影の調整)で追加。既定値(背景なし)はスキン通常の影のまま -->
+        <item name="miniPlayerElevation">?attr/skinCardElevation</item>
+        <!-- BottomNavigation背景対応(フェーズ2)で追加。既定値(背景なし)は従来通りの不透明色 -->
+        <item name="bottomNavBackgroundColor">@color/color_surface</item>
+        <!-- 再生キュー背景対応(フェーズ3)で追加。既定値(背景なし)は従来通りの不透明色 -->
+        <item name="queueBackgroundColor">@color/color_surface</item>
+    </style>
+</resources>
