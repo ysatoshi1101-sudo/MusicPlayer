@@ -13,3 +13,9 @@
 .externalNativeBuild
 .cxx
 local.properties
+# 署名キー(絶対にpushしない)
+*.jks
+*.keystore
+keystore.properties
+# Android Studioの個人設定(ビルドに無関係)
+/.idea/vcs.xml
