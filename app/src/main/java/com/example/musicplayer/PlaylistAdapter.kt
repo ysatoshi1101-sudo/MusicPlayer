@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -26,13 +26,17 @@ class PlaylistAdapter(
     private val dragListener: OnStartDragListener
 ) : RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHolder>() {
 
+    private companion object {
+        const val MENU_RENAME = 1
+        const val MENU_DELETE = 2
+    }
+
     class PlaylistViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val dragHandle: TextView = view.findViewById(R.id.textViewDragHandle)
         val coverImage: ImageView = view.findViewById(R.id.imageViewPlaylistCover)
         val nameText: TextView = view.findViewById(R.id.textViewPlaylistName)
         val songCountText: TextView = view.findViewById(R.id.textViewPlaylistSongCount)
-        val renameButton: ImageButton = view.findViewById(R.id.buttonRenamePlaylist)
-        val deleteButton: ImageButton = view.findViewById(R.id.buttonDeletePlaylist)
+        val moreButton: TextView = view.findViewById(R.id.buttonMorePlaylist)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistViewHolder {
@@ -57,11 +61,8 @@ class PlaylistAdapter(
         holder.itemView.setOnClickListener {
             onPlaylistClick(playlist)
         }
-        holder.renameButton.setOnClickListener {
-            onRenameClick(playlist)
-        }
-        holder.deleteButton.setOnClickListener {
-            onDeleteClick(playlist)
+        holder.moreButton.setOnClickListener { anchor ->
+            showPlaylistMenu(anchor, playlist)
         }
 
         holder.dragHandle.setOnTouchListener { _, event ->
@@ -70,6 +71,21 @@ class PlaylistAdapter(
             }
             false
         }
+    }
+
+    // 「⋮」を押したときに出す、名前変更・削除のメニュー
+    private fun showPlaylistMenu(anchor: View, playlist: Playlist) {
+        val popup = PopupMenu(anchor.context, anchor)
+        popup.menu.add(0, MENU_RENAME, 0, "名前を変更")
+        popup.menu.add(0, MENU_DELETE, 1, "削除")
+        popup.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                MENU_RENAME -> onRenameClick(playlist)
+                MENU_DELETE -> onDeleteClick(playlist)
+            }
+            true
+        }
+        popup.show()
     }
 
     fun moveItem(fromPosition: Int, toPosition: Int) {

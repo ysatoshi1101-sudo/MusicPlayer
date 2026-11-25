@@ -6,8 +6,10 @@
     android:layout_marginStart="@dimen/space_m"
     android:layout_marginEnd="@dimen/space_m"
     android:layout_marginTop="@dimen/space_s"
-    app:cardCornerRadius="@dimen/radius_card"
-    app:cardElevation="2dp"
+    app:cardCornerRadius="?attr/skinCardCornerRadius"
+    app:cardElevation="?attr/skinCardElevation"
+    app:strokeWidth="?attr/skinCardStrokeWidth"
+    app:strokeColor="?attr/colorPrimary"
     app:cardBackgroundColor="@color/color_surface">
 
     <LinearLayout
@@ -15,21 +17,27 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:padding="@dimen/space_m">
+        android:paddingStart="@dimen/space_s"
+        android:paddingEnd="@dimen/space_s"
+        android:paddingTop="@dimen/space_card"
+        android:paddingBottom="@dimen/space_card">
 
+        <!-- 並び替え用のドラッグハンドル。小さく薄くしたが、押しやすいようpaddingで当たり判定は確保する -->
         <TextView
             android:id="@+id/textViewDragHandle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/space_m"
+            android:padding="@dimen/space_s"
             android:text="≡"
-            android:textSize="22sp"
-            android:textColor="@color/color_icon_secondary" />
+            android:textSize="20sp"
+            android:textColor="@color/color_icon_secondary"
+            android:alpha="0.6" />
 
         <androidx.cardview.widget.CardView
-            android:layout_width="@dimen/song_thumbnail_size"
-            android:layout_height="@dimen/song_thumbnail_size"
-            app:cardCornerRadius="@dimen/radius_small"
+            android:layout_width="@dimen/playlist_row_cover_size"
+            android:layout_height="@dimen/playlist_row_cover_size"
+            android:layout_marginStart="@dimen/space_xs"
+            app:cardCornerRadius="@dimen/radius_medium"
             app:cardElevation="0dp"
             app:cardBackgroundColor="@color/color_mini_player_background">
 
@@ -74,35 +82,19 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <!-- 名前の変更・削除をまとめたメニューボタン(曲一覧の「⋮」と同じ作り) -->
+        <TextView
+            android:id="@+id/buttonMorePlaylist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_s"
-            android:orientation="vertical"
-            android:gravity="center_horizontal">
-
-            <ImageButton
-                android:id="@+id/buttonRenamePlaylist"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/space_xs"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="名前を変更"
-                android:src="@android:drawable/ic_menu_edit"
-                app:tint="@color/color_icon_secondary" />
-
-            <ImageButton
-                android:id="@+id/buttonDeletePlaylist"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:padding="@dimen/space_xs"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="削除"
-                android:src="@android:drawable/ic_menu_delete"
-                app:tint="@color/color_icon_secondary" />
-
-        </LinearLayout>
+            android:padding="@dimen/space_s"
+            android:text="⋮"
+            android:textSize="22sp"
+            android:textColor="@color/color_icon_secondary"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="メニュー" />
 
     </LinearLayout>
 
