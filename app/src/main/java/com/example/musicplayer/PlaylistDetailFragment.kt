@@ -19,6 +19,8 @@ import androidx.media3.common.MediaMetadata
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.Dispatchers
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -49,15 +51,15 @@ class PlaylistDetailFragment : Fragment() {
     }
 
     private lateinit var recyclerView: RecyclerView
-    // 再生中アニメーション機能で追加。displaySongs()のたびにアダプターを作り直すため、
-    // 今再生中の曲の状態はこのFragment側にも覚えておく
+    // 再生中アニメーション機能で追加。今再生中の曲の状態はこのFragment側にも覚えておく
     private val playerViewModel: PlayerViewModel by activityViewModels()
     private var playlistSongAdapter: PlaylistSongAdapter? = null
     private var nowPlayingSongId: Long? = null
     private var nowPlayingIsPlaying: Boolean = false
     private lateinit var database: AppDatabase
+    private lateinit var textViewSongCount: TextView
     private lateinit var textViewSelectAll: TextView
-    private lateinit var buttonPlayShuffled: ImageButton
+    private lateinit var buttonPlayShuffled: MaterialButton
     private lateinit var buttonDeleteSelected: ImageButton
     private lateinit var imageViewCover: ImageView
     private lateinit var textViewName: TextView
@@ -98,10 +100,25 @@ class PlaylistDetailFragment : Fragment() {
         recyclerView = view.findViewById(R.id.recyclerViewPlaylistSongs)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
+        // アダプターはここで1回だけ作り、曲の一覧が変わったときは中身(submitSongs)だけ入れ替える。
+        // (毎回アダプターを作り直すと、複数選択でチェックするたびに一覧が先頭へ戻ってしまうため)
+        val adapter = PlaylistSongAdapter(
+            onSongClick = { song -> playSong(playlistSongs, song) },
+            onRemoveClick = { song -> removeSong(song) },
+            isSelectionMode = { selectionMode },
+            isSelected = { song -> song.id in selectedIds },
+            onSelectionToggle = { song -> toggleSelection(song) },
+            onSongLongClick = { song -> enterSelectionModeWith(song) }
+        )
+        adapter.setNowPlaying(nowPlayingSongId, nowPlayingIsPlaying)
+        playlistSongAdapter = adapter
+        recyclerView.adapter = adapter
+
         imageViewCover = view.findViewById(R.id.imageViewPlaylistCover)
         textViewName = view.findViewById(R.id.textViewPlaylistDetailName)
         textViewName.text = playlistName
 
+        textViewSongCount = view.findViewById(R.id.textViewSongCount)
         textViewSelectAll = view.findViewById(R.id.textViewSelectAll)
         buttonPlayShuffled = view.findViewById(R.id.buttonPlayShuffled)
         buttonDeleteSelected = view.findViewById(R.id.buttonDeleteSelected)
@@ -111,6 +128,8 @@ class PlaylistDetailFragment : Fragment() {
         textViewSelectAll.setOnClickListener { toggleSelectAll() }
         view.findViewById<ImageButton>(R.id.buttonMenu).setOnClickListener { showMainMenu(it) }
 
+        setupCollapsingCover(view)
+        updateSelectionUi()
         loadCoverHeader()
         loadPlaylistSongs()
 
@@ -131,6 +150,24 @@ class PlaylistDetailFragment : Fragment() {
     }
 
     private fun getController() = (activity as? MainActivity)?.mediaController
+
+    // 上にスクロールしたとき、スクロール量(0=展開 〜 1=完全に縮んだ)に応じて
+    // カバーを小さく・薄くする。AppBarLayoutがスクロール量を通知してくれる
+    private fun setupCollapsingCover(view: View) {
+        val appBar = view.findViewById<AppBarLayout>(R.id.appBarLayout)
+        val coverCard = view.findViewById<View>(R.id.cardPlaylistCover)
+        appBar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { layout, verticalOffset ->
+            val range = layout.totalScrollRange
+            if (range > 0) {
+                val progress = (-verticalOffset / range.toFloat()).coerceIn(0f, 1f)
+                val scale = 1f - 0.6f * progress
+                coverCard.scaleX = scale
+                coverCard.scaleY = scale
+                // 大きさの変化より少し早く消えるようにする
+                coverCard.alpha = (1f - progress * 1.4f).coerceIn(0f, 1f)
+            }
+        })
+    }
 
     // カバー画像(手動設定 or 先頭曲のアルバムアート)を読み込んで表示する
     private fun loadCoverHeader() {
@@ -204,20 +241,10 @@ class PlaylistDetailFragment : Fragment() {
         }
     }
 
+    // 曲の一覧・選択状態が変わったら呼ぶ。上部バーの表示も更新し、アダプターには中身だけ渡す
     private fun displaySongs() {
-        val adapter = PlaylistSongAdapter(
-            songList = playlistSongs,
-            onSongClick = { song -> playSong(playlistSongs, song) },
-            onRemoveClick = { song -> removeSong(song) },
-            isSelectionMode = { selectionMode },
-            isSelected = { song -> song.id in selectedIds },
-            onSelectionToggle = { song -> toggleSelection(song) },
-            onSongLongClick = { song -> enterSelectionModeWith(song) }
-        )
-        // 作り直したアダプターにも、今再生中の曲の状態を引き継ぐ
-        adapter.setNowPlaying(nowPlayingSongId, nowPlayingIsPlaying)
-        playlistSongAdapter = adapter
-        recyclerView.adapter = adapter
+        updateSelectionUi()
+        playlistSongAdapter?.submitSongs(playlistSongs)
     }
 
     // 検索バー右の3本線メニュー
@@ -299,15 +326,18 @@ class PlaylistDetailFragment : Fragment() {
         displaySongs()
     }
 
+    // 選択モードのON/OFFに応じて上部バーの表示を切り替える(曲一覧画面と同じ考え方)
     private fun updateSelectionUi() {
         if (selectionMode) {
             buttonPlayShuffled.visibility = View.GONE
             textViewSelectAll.visibility = View.VISIBLE
             buttonDeleteSelected.visibility = View.VISIBLE
+            textViewSongCount.text = "${selectedIds.size}件選択中"
         } else {
             buttonPlayShuffled.visibility = View.VISIBLE
-            textViewSelectAll.visibility = View.INVISIBLE
+            textViewSelectAll.visibility = View.GONE
             buttonDeleteSelected.visibility = View.GONE
+            textViewSongCount.text = "${playlistSongs.size}曲"
         }
     }
     private fun showDeleteSelectedConfirmDialog() {

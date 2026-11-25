@@ -1,116 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardPlaylistCover"
-        android:layout_width="@dimen/home_card_image_size"
-        android:layout_height="@dimen/home_card_image_size"
-        android:layout_marginTop="@dimen/space_m"
-        app:cardCornerRadius="@dimen/radius_card"
-        app:cardElevation="2dp"
-        app:cardBackgroundColor="@color/color_mini_player_background"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+    <!-- プレイリスト詳細の「縮むヘッダー」。背景機能(写真・パターン)が透けて見えるよう、
+         AppBarLayout標準の背景色・影・スクロール時の色変化はすべて無効にしている。
+         直下の子のうち、layout_scrollFlagsを持つcoverSectionだけが上スクロールで画面外へ出て、
+         フラグを持たないinfoSection(名前+操作バー)は上に残る -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:stateListAnimator="@null"
+        app:elevation="0dp"
+        app:liftOnScroll="false">
 
-        <ImageView
-            android:id="@+id/imageViewPlaylistCover"
+        <!-- カバー部分。上にスクロールすると、PlaylistDetailFragment.ktが
+             スクロール量に応じてカバーを小さく・薄くする。snapで中途半端な状態で止まらないようにする -->
+        <FrameLayout
+            android:id="@+id/coverSection"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:contentDescription="プレイリストカバー" />
-
-    </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:id="@+id/textViewPlaylistDetailName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_s"
-        android:layout_marginStart="@dimen/space_screen_horizontal"
-        android:layout_marginEnd="@dimen/space_screen_horizontal"
-        android:gravity="center"
-        android:maxLines="2"
-        android:ellipsize="end"
-        android:textAppearance="@style/TextAppearance.SDMusicPlayer.Title"
-        app:layout_constraintTop_toBottomOf="@id/cardPlaylistCover"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="プレイリスト名" />
-
-    <LinearLayout
-        android:id="@+id/controlBar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingStart="@dimen/space_screen_horizontal"
-        android:paddingEnd="@dimen/space_s"
-        android:paddingTop="@dimen/space_s"
-        android:paddingBottom="@dimen/space_s"
-        app:layout_constraintTop_toBottomOf="@id/textViewPlaylistDetailName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <ImageButton
-            android:id="@+id/buttonPlayShuffled"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/space_s"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="シャッフル再生"
-            android:src="@drawable/ic_shuffle"
-            app:tint="?attr/colorPrimary" />
+            android:clipToPadding="false"
+            android:paddingTop="@dimen/space_m"
+            android:paddingBottom="@dimen/space_m"
+            app:layout_scrollFlags="scroll|snap">
 
-        <TextView
-            android:id="@+id/textViewSelectAll"
-            android:layout_width="0dp"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardPlaylistCover"
+                android:layout_width="@dimen/home_card_image_size"
+                android:layout_height="@dimen/home_card_image_size"
+                android:layout_gravity="center_horizontal"
+                app:cardCornerRadius="?attr/skinCardCornerRadius"
+                app:cardElevation="?attr/skinCardElevation"
+                app:strokeWidth="?attr/skinCardStrokeWidth"
+                app:strokeColor="?attr/colorPrimary"
+                app:cardBackgroundColor="@color/color_mini_player_background">
+
+                <ImageView
+                    android:id="@+id/imageViewPlaylistCover"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="プレイリストカバー" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </FrameLayout>
+
+        <!-- 名前+操作バー。layout_scrollFlagsを付けないので、スクロールしても上に残る -->
+        <LinearLayout
+            android:id="@+id/infoSection"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="@dimen/space_m"
-            android:text="全選択"
-            android:textAppearance="@style/TextAppearance.SDMusicPlayer.Button"
-            android:textColor="?attr/colorPrimary"
-            android:padding="@dimen/space_s"
-            android:visibility="invisible" />
+            android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/buttonDeleteSelected"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_xs"
-            android:padding="@dimen/space_s"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="プレイリストから一括削除"
-            android:src="@android:drawable/ic_menu_delete"
-            android:visibility="gone"
-            app:tint="@color/color_error" />
+            <TextView
+                android:id="@+id/textViewPlaylistDetailName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/space_screen_horizontal"
+                android:paddingEnd="@dimen/space_screen_horizontal"
+                android:gravity="center"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textAppearance="@style/TextAppearance.SDMusicPlayer.Title"
+                android:text="プレイリスト名" />
 
-        <ImageButton
-            android:id="@+id/buttonMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_xs"
-            android:padding="@dimen/space_s"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="メニュー"
-            android:src="@android:drawable/ic_menu_sort_by_size"
-            app:tint="?attr/bgTextColorSecondary" />
+            <LinearLayout
+                android:id="@+id/controlBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/space_screen_horizontal"
+                android:paddingEnd="@dimen/space_s"
+                android:paddingTop="@dimen/space_s"
+                android:paddingBottom="@dimen/space_s">
 
-    </LinearLayout>
+                <!-- 曲一覧画面(fragment_songs.xml)と同じ見た目のシャッフル再生ボタン -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/buttonPlayShuffled"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minHeight="0dp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:paddingStart="@dimen/space_m"
+                    android:paddingEnd="@dimen/space_m"
+                    android:paddingTop="@dimen/space_s"
+                    android:paddingBottom="@dimen/space_s"
+                    android:text="シャッフル再生"
+                    android:textAppearance="@style/TextAppearance.SDMusicPlayer.Button"
+                    android:textColor="?attr/colorOnPrimary"
+                    app:icon="@drawable/ic_shuffle"
+                    app:iconTint="?attr/colorOnPrimary"
+                    app:iconSize="18dp"
+                    app:iconGravity="textStart"
+                    app:iconPadding="@dimen/space_xs"
+                    app:cornerRadius="@dimen/radius_button"
+                    app:backgroundTint="?attr/colorPrimary"
+                    android:contentDescription="シャッフル再生" />
 
+                <TextView
+                    android:id="@+id/textViewSelectAll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_m"
+                    android:text="全選択"
+                    android:textAppearance="@style/TextAppearance.SDMusicPlayer.Button"
+                    android:textColor="?attr/colorPrimary"
+                    android:padding="@dimen/space_s"
+                    android:visibility="gone" />
+
+                <!-- 曲数(通常時)/選択数(複数選択時) -->
+                <TextView
+                    android:id="@+id/textViewSongCount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/space_m"
+                    android:gravity="end"
+                    android:textAppearance="@style/TextAppearance.SDMusicPlayer.BodySmall"
+                    android:text="0曲" />
+
+                <ImageButton
+                    android:id="@+id/buttonDeleteSelected"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_xs"
+                    android:padding="@dimen/space_s"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="プレイリストから一括削除"
+                    android:src="@android:drawable/ic_menu_delete"
+                    android:visibility="gone"
+                    app:tint="@color/color_error" />
+
+                <ImageButton
+                    android:id="@+id/buttonMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_xs"
+                    android:padding="@dimen/space_s"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="メニュー"
+                    android:src="@android:drawable/ic_menu_sort_by_size"
+                    app:tint="?attr/bgTextColorSecondary" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- 曲一覧。appbar_scrolling_view_behaviorで、ヘッダーの縮みとスクロールが連動する -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewPlaylistSongs"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:clipToPadding="false"
         android:paddingBottom="@dimen/space_m"
-        app:layout_constraintTop_toBottomOf="@id/controlBar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

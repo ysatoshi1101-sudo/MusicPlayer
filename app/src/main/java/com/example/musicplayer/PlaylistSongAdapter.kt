@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 
 class PlaylistSongAdapter(
-    private val songList: List<Song>,
     private val onSongClick: (Song) -> Unit,
     private val onRemoveClick: (Song) -> Unit,
     private val isSelectionMode: () -> Boolean = { false },
@@ -25,6 +24,11 @@ class PlaylistSongAdapter(
         const val PAYLOAD_NOW_PLAYING = "now_playing"
     }
 
+    // 表示する曲の一覧。Fragment側からsubmitSongs()で入れ替える。
+    // (以前はコンストラクタで受け取り、変更のたびにアダプターごと作り直していたため、
+    //  setAdapterのたびにスクロール位置が先頭へ戻っていた)
+    private var songList: List<Song> = emptyList()
+
     // 再生中アニメーション機能で追加。今再生中の曲IDと、再生中/一時停止中の状態
     private var nowPlayingSongId: Long? = null
     private var nowPlayingIsPlaying: Boolean = false
@@ -36,6 +40,13 @@ class PlaylistSongAdapter(
         val titleText: TextView = view.findViewById(R.id.textViewTitle)
         val artistText: TextView = view.findViewById(R.id.textViewArtist)
         val removeButton: ImageButton = view.findViewById(R.id.buttonRemove)
+    }
+
+    // 曲の一覧(または選択状態)が変わったときに呼ぶ。アダプターは作り直さず中身だけ入れ替えるので、
+    // スクロール位置は保たれる
+    fun submitSongs(newList: List<Song>) {
+        songList = newList
+        notifyDataSetChanged()
     }
 
     // 再生中アニメーション機能で追加。Fragment側から「今再生中の曲」が変わるたびに呼ぶ。
